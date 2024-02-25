@@ -1,48 +1,42 @@
 ---
 slug: /syntax
 ---
-import SnapBlocks from '@site/src/components/SnapBlocks.js'
 
-This article demonstrates the **[Block Plugin](Block_Plugin "wikilink") syntax**.
+This article demonstrates the **snapblocks syntax**.
 
-On the [Scratch Forums](Scratch_Discussion_Forums "wikilink"), code must be written between `[scratchblocks]...[/scratchblocks]` tags. (On the wiki, `<snapblocks>...</snapblocks>` tags are used.) For a simplified explanation, see [here](topic:54562 "wikilink").
+On the [Snap Forum](https://forum.snap.berkeley.edu), code must be written between `[snapblocks]...[/snapblocks]` tags. (On the wiki, `<snapblocks>...</snapblocks>` tags are used.).
 
-Every [block](block "wikilink") goes on a new line and is written as the text on the block is shown on Scratch. For example:
+Every block goes on a new line and is written as the text on the block is shown on Scratch. For example:
 
-<table>
-<thead>
-<tr>
-<th><p>Code</p></th>
-<th><p>Result</p></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-```
-when green flag clicked
-forever {
-    turn cw (15) degrees
-    say [Hello!] for (2) seconds
-    if \<mouse down?\> {
-        change [mouse clicks V] by (1)
-    }
-}
-```
-</td>
-<td><SnapBlocks>
-{`when green flag clicked
-forever {
-    turn cw (15) degrees
-    say [Hello!] for (2) seconds
-    if \<mouse down?\> {
-        change [mouse clicks V] by (1)
-    }
-}`}
-</SnapBlocks></td>
-</tr>
-</tbody>
-</table>
+
+<Tabs>
+    <TabItem value="code" label="code">
+        ```
+        when green flag clicked
+        forever {
+            turn cw (15) degrees
+            say [Hello!] for (2) seconds
+            if <mouse down?> {
+                change [mouse clicks V] by (1)
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="result" label="result">
+        <SnapBlocks>
+        {
+            `when green flag clicked
+            forever {
+                turn cw (15) degrees
+                say [Hello!] for (2) seconds
+                if <mouse down?> {
+                    change [mouse clicks V] by (1)
+                }
+            }`
+        }
+        </SnapBlocks>
+    </TabItem>
+</Tabs>
 
 ## Arguments
 
@@ -53,11 +47,20 @@ within the block with various codes.
 
 The round numerical insert is used with parentheses: `(10)`.
 
+<Tabs>
+<TabItem value="code" label="code">
 ```
 move (10) steps
 ```
-
-<SnapBlocks>{`move (10) steps`}</SnapBlocks>
+</TabItem>
+<TabItem value="result" label="result">
+<SnapBlocks>
+{
+    `move (10) steps`
+}
+</SnapBlocks>
+</TabItem>
+</Tabs>
 
 ### String Insert
 
@@ -335,10 +338,10 @@ say (list of Scratch team members)
 ```
 
 <SnapBlocks>
-add [mres] to [list of Scratch team members v]
+{`add [mres] to [list of Scratch team members v]
 add [paddle2see] to [list of Scratch team members v]
 add [harakou] to [list of Scratch team members v]
-say (list of Scratch team members)
+say (list of Scratch team members)`}
 </SnapBlocks>
 
 If a list block is not wanted or needed inside the same
@@ -440,11 +443,12 @@ forcing non-Scratch blocks to appear correctly. Note that only color
 changing with the legacy syntax works in the old version. The legacy
 syntax is obsolete (it no longer works since scratchblocks3).
 
+
 <table>
 <colgroup>
-<col style="width: 30%" />
-<col style="width: 50%" />
-<col style="width: 20%" />
+<col />
+<col />
+<col />
 </colgroup>
 <thead>
 <tr>
@@ -574,6 +578,7 @@ yz {
 </tbody>
 </table>
 
+
 ### Snap*!*
 
 The new plugin also supports features specific to Snap*!*, such as
@@ -629,28 +634,31 @@ report [Done!]:: control cap
 ### GP
 
 This plugin also includes hacks to [GP](GP "wikilink").
-
+<!--
 <SnapBlocks>
-{`when tracking (mouse x:: variables) (mouse y:: variables):: hat control
+{`
+when tracking (mouse x:: variables) (mouse y:: variables):: hat control
 
-((1) !=\\ (0):: operators)
+((1) !=\\\\ (0):: operators)
 
 define(a function:: motion):: custom hat return (1):: control
 
 say (pi:: operators):: motion
 
-when I receive \[go\]:: control
+when I receive \\[go\\]:: control
 
 wait @addInput:: control
 
-(isNil \[obj v\]:: operators)
+(isNil \[obj v\\]:: operators)
 
 (touching mouse:: sensing)
 
-((--(:: \#fff):: operators):: operators)
+((--(:: \\#fff):: operators):: operators)
 
-if (--(:: \#fff):: operators) { } @addInput:: control`}
+if (--(:: \\#fff):: operators) { } @addInput:: control
+`}
 </SnapBlocks>
+-->
 
 ## Backslash
 
@@ -679,10 +687,6 @@ play drum (\(1\) Snare Drum v) for (0.25) beats
 ```
 
 <SnapBlocks>
-{`play drum ($1$ Snare Drum v) for (0.25) beats`}
+{`play drum (\\(1\\) Snare Drum v) for (0.25) beats`}
 </SnapBlocks>
 
-[fr:Scratch Wiki Accueil/le forum/blocs du forum/liste
-blocs](fr:Scratch_Wiki_Accueil/le_forum/blocs_du_forum/liste_blocs "wikilink")
-
-[Category:Scratch Extensions](Category:Scratch_Extensions "wikilink")

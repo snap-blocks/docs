@@ -21,10 +21,13 @@ const SnapBlocks = ({
     }
     if (blockStyle !== undefined) options.style = blockStyle
     if (languages !== undefined) options.languages = languages
-    if (inline !== undefined) options.languages = inline
-    if (wrap !== undefined) options.style = wrap
-    if (wrapSize !== undefined) options.languages = wrapSize
-    if (zebraColoring !== undefined) options.languages = zebraColoring
+    if (inline !== undefined) options.inline = inline
+    if (wrap !== undefined) options.wrap = wrap
+    if (wrapSize !== undefined) options.wrapSize = wrapSize
+    if (zebraColoring !== undefined) options.zebraColoring = zebraColoring
+
+    console.log('options', options)
+
 
     const doc = snapblocks.parse(children, options)
     const svg = snapblocks.render(doc, options)
