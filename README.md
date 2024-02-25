@@ -19,6 +19,8 @@ Since this is built using Docusaurus, markdown files can use react components. T
 </SnapBlocks>
 ```
 
+Note: currently there is a bug, where if the first snapblocks svg is hidden, then all the other snapblocks svgs don't render properly. This will be fixed in snapblocks `1.2.0`.
+
 Available properties:
 
 | Name          | Default  | Valid Values                                                             | Description                                                                           |
