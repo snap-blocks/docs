@@ -1,42 +1,56 @@
 import * as React from "react"
 
-import snapblocks from "snapblocks"
+class SnapBlocks extends React.Component {
+  constructor(props) {
+    super(props)
+  
+    this.snapblocks = null
+    this.isBrowser = typeof window != 'undefined'
+    this.blockRef = React.createRef(null)
+  }
 
-const SnapBlocks = ({
-  blockStyle,
-  languages,
-  inline,
-  wrap,
-  wrapSize,
-  zebraColoring,
-  children,
-  ...props
-}) => {
-  const ref = React.useRef(null)
+  async importSnapblocks() {
+    console.log('import')
+    const snapblocks = await import('snapblocks')
+    return snapblocks.default
+  }
 
-  React.useEffect(() => {
+  async renderBlocks() {
+    const snapblocks = await this.importSnapblocks()
+
     let options = {
-        wrap: true,
-        zebraColoring: true,
+      wrap: true,
+      zebraColoring: true,
     }
-    if (blockStyle !== undefined) options.style = blockStyle
-    if (languages !== undefined) options.languages = languages
-    if (inline !== undefined) options.inline = inline
-    if (wrap !== undefined) options.wrap = wrap
-    if (wrapSize !== undefined) options.wrapSize = wrapSize
-    if (zebraColoring !== undefined) options.zebraColoring = zebraColoring
+    if (this.props.blockStyle !== undefined) options.style = blockStyle
+    if (this.props.languages !== undefined) options.languages = languages
+    if (this.props.inline !== undefined) options.inline = inline
+    if (this.props.wrap !== undefined) options.wrap = wrap
+    if (this.props.wrapSize !== undefined) options.wrapSize = wrapSize
+    if (this.props.zebraColoring !== undefined) options.zebraColoring = zebraColoring
 
-    console.log('options', options)
-
-
-    const doc = snapblocks.parse(children, options)
+    const doc = snapblocks.parse(this.props.children, options)
     const svg = snapblocks.render(doc, options)
 
-    ref.current.innerHTML = ""
-    ref.current.appendChild(svg)
-  }, [blockStyle, languages, children])
+    const node = this.blockRef.current
+    if (node == null) {
+      return
+    }
+    node.innerHTML = ""
+    node.appendChild(svg)
+  }
 
-  return <div ref={ref} {...props} />
+  componentDidMount() {
+    console.log('update')
+    if (this.isBrowser) {
+      console.log('isBrowser', this.isBrowser)
+      this.renderBlocks()
+    }
+  }
+
+  render() {
+    return <div ref={this.blockRef} {...this.props}></div>
+  }
 }
 
 export default SnapBlocks
