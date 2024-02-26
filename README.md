@@ -31,7 +31,6 @@ Available properties:
 | wrapSize      | {null}  | {number} or {null}                                                       | Set block wrap size.                                                                  |
 | zebraColoring | {true}  | {true} or {false}                                                        | Enables zebra coloring.                                                               |
 | inline        | {false} | {true} or {false}                                                        | Write snapblocks inline in text. This is not recommended.                             |
-| ... and more! |         |                                                                          | All other props (such as "className" and "style") will be passed directly to the div. |
 
 If you feel like there should be a new page, go ahead and make it, just make sure to correctly set it up in `sidebars.js`
 
