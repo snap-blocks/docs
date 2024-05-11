@@ -1,692 +1,608 @@
----
-slug: /syntax
----
 
-This article demonstrates the **snapblocks syntax**.
+# Syntax
+## How to write snapblocks
+Snapblocks is written how you see it in Snap<i>!</i>, with each block on a new line.
 
-On the [Snap Forum](https://forum.snap.berkeley.edu), code must be written between `[snapblocks]...[/snapblocks]` tags. (On the wiki, `<snapblocks>...</snapblocks>` tags are used.).
-
-Every block goes on a new line and is written as the text on the block is shown on Scratch. For example:
-
-
-<Tabs>
-    <TabItem value="code" label="code">
-        ```
-        when green flag clicked
-        forever {
-            turn cw (15) degrees
-            say [Hello!] for (2) seconds
-            if <mouse down?> {
-                change [mouse clicks V] by (1)
-            }
-        }
-        ```
-    </TabItem>
-    <TabItem value="result" label="result">
-        <SnapBlocks>
-        {
-            `when green flag clicked
-            forever {
-                turn cw (15) degrees
-                say [Hello!] for (2) seconds
-                if <mouse down?> {
-                    change [mouse clicks V] by (1)
-                }
-            }`
-        }
-        </SnapBlocks>
-    </TabItem>
-</Tabs>
-
-## Arguments
-
-Arguments, or inputs to a block, are represented
-within the block with various codes.
-
-### Numerical Insert
-
-The round numerical insert is used with parentheses: `(10)`.
-
-<Tabs>
-<TabItem value="code" label="code">
-```
+```snapblocks
+when flag clicked
 move (10) steps
+say [Hello world!]
 ```
-</TabItem>
-<TabItem value="result" label="result">
+
 <SnapBlocks>
-{
-    `move (10) steps`
-}
+  {`
+    when flag clicked
+    move (10) steps
+    say [Hello world!]
+  `}
 </SnapBlocks>
-</TabItem>
-</Tabs>
 
-### String Insert
+There are of course different block shapes that you can use.
 
-String inputs are created with square brackets:
-`[lorem ipsum]`
-
-```
-say [Hi]
-```
-
-<SnapBlocks>{`say [Hi]`}</SnapBlocks>
-
-```
-think [bye]
-```
-<SnapBlocks>{`think [bye]`}</SnapBlocks>
-
-### Block Insert
-
-Boolean blocks and reporter
-blocks are created with `<boolean>` and
-`(reporter)`, respectively.
-
-```
-if <<mouse down?> and <(costume [number v]) = [1]>> {
-    stamp
-}
+```snapblocks
+command
+(reporter)
+<predicate>
 ```
 
 <SnapBlocks>
-{`if <<mouse down?> and <(costume [number v]) = [1]>> {
-    stamp
-}`}
+{`
+command
+(reporter :: obsolete)
+<predicate>
+`}
+</SnapBlocks>
+
+You can set more shapes with overrides
+
+```snapblocks
+hat :: hat
+cap :: cap
+```
+
+<SnapBlocks>
+{`
+hat :: hat
+cap :: cap
+`}
+</SnapBlocks>
+
+However there are some blocks that will automatically become that shape.
+
+```snapblocks
+when flag clicked
+stop [all V]
+```
+
+<SnapBlocks>
+{`
+when flag clicked
+stop [all V]
+`}
+</SnapBlocks>
+
+Anything after `::` is used to define properties about the block, such as it's shape, and more.
+
+## C-shapes
+
+C-shapes are created using curly braces.
+
+```snapblocks
+if <> {
+  
+} @addInput
+```
+
+<SnapBlocks>
+{`
+if <> {
+  
+} @addInput
+`}
+</SnapBlocks>
+
+Anything inside the curly braces are placed in the c-shape.
+
+```snapblocks
+if <> {
+  move (10) steps
+} @addInput
+```
+
+<SnapBlocks>
+{`
+if <> {
+  move (10) steps
+} @addInput
+`}
+</SnapBlocks>
+
+## Inputs
+
+As you probably noticed, there are inputs inside blocks, these are:
+
+```snapblocks
+number (5)
+string [strng]
+boolean <>
+```
+
+<SnapBlocks>
+{`
+number (5)
+string [strng]
+boolean <>
+`}
+</SnapBlocks>
+
+### Number Input
+
+A number input is created by using parentheses `()`. A number input can only have number in it.
+
+```snapblocks
+number (5)
+```
+
+<SnapBlocks>
+{`
+number (5)
+`}
+</SnapBlocks>
+
+### String Input
+
+A string input is created by using square brackets `[]`. A string input can have any text in it.
+
+```snapblocks
+say [Hello world!]
+```
+
+<SnapBlocks>
+{`
+say [Hello world!]
+`}
+</SnapBlocks>
+
+### Dropdowns
+
+Dropdowns can be created by putting a `v` right before the closing bracket in inputs. There are 2 types of dropdowns, editable `v`, and read-only `V`.
+
+```snapblocks
+editable bumber (5 v)
+editable string [string v]
+read-only (5 V)
+read-only [string V]
+```
+
+<SnapBlocks>
+{`
+editable bumber (5 v)
+editable string [string v]
+read-only (5 V)
+read-only [string V]
+`}
+</SnapBlocks>
+
+Number dropdowns can have anything in it.
+
+```snapblocks
+(item (last v) of @list)
+```
+
+<SnapBlocks>
+{`
+(item (last v) of @list)
+`}
 </SnapBlocks>
 
 ### Color Input
 
-Color inputs can be made by entering a hexadecimal code into a string
-input.
+Color inputs are created by putting a color code inside a string or number input. A color code can either by a hex color code, or an rgb value.
 
-```
-set pen color to [#1540bf]
-```
-
-<SnapBlocks>{`set pen color to [#1540bf]`}</SnapBlocks>
-
-Note that 3-byte long hexadecimal codes are also supported.
-
-```
-set pen color to [#0f0]
-```
-
-<SnapBlocks>{`set pen color to [#0f0]`}</SnapBlocks>
-
-### Dropdown Inputs
-
-Dropdown inputs are created by adding a `V` at the end of a text or number input.
-
-```
-stop [all V]
-item (last v) of @list
+```snapblocks
+<touching [#911a44] ?>
+<touching [rgb(145,26,68)] ?>
+<touching (#911a44) ?>
 ```
 
 <SnapBlocks>
-{`stop [all V]
-item (last v) of @list`}
+{`
+<touching [#911a44] ?>
+<touching [rgb(145,26,68)] ?>
+<touching (#911a44) ?>
+`}
 </SnapBlocks>
 
-Readonly dropdowns are created with a capital `V`, whereas editable dropdowns are created with a lowercase `v`.
+Currently, as of snapblocks 1.4.0, an rgb color cannot be used inside number inputs.
 
-```
-([length V] of text [Hello world])
-(split [Hello world] by [word v])
-(item (random v) of @list)
-(readonly number (1 V))
+### Boolean Input
+
+A Boolean input is created by using angled brackets `<>`.
+
+```snapblocks
+Boolean <>
 ```
 
 <SnapBlocks>
-{`([length V] of text [Hello world])
-(split [Hello world] by [word v])
-(item (random v) of @list)
-(readonly number (1 V))`}
+{`
+Boolean <>
+`}
 </SnapBlocks>
 
-## Special Blocks
+A Boolean input can only have some specific values, which are used to choose whether the input is true or false.
 
-Some blocks have different code based on their unique shapes and
-features.
-
-### Hat Blocks
-
-The When Green Flag Clicked block can be typed with any of the following syntax options:
-
+```snapblocks
+true <t>
+false <f>
 ```
-when green flag clicked
-when gf clicked
-when flag clicked
-when @greenFlag clicked
-```
-
-<SnapBlocks>{`when gf clicked`}</SnapBlocks>
-
-### Stack Blocks
-
-The Turn () Degrees (clockwise) block can be written two ways:
-
-```
-turn cw () degrees
-turn right () degrees
-```
-
-<SnapBlocks>{`turn cw () degrees`}</SnapBlocks>
-
-The Turn () Degrees (counter-clockwise) block can also be written two ways:
-
-```
-turn ccw () degrees
-turn left () degrees
-```
-
-<SnapBlocks>{`turn ccw () degrees`}</SnapBlocks>
-
-### C Blocks
-
-The blocks inside a C Block must be inside curly brackets `{}`. It will automatically close if you don't include a closed curly bracket `}` For example:
-
-```
-repeat (10) {
-    move (5) steps
-    stamp
-}
-repeat (10) {
-    move (10) steps
-    stamp
-```
-
-Makes:
 
 <SnapBlocks>
-{`repeat (10) {
-    move (5) steps
-    stamp
-}
-repeat (10) {
-    move (10) steps
-    stamp`}
+{`
+true <t>
+false <f>
+`}
 </SnapBlocks>
+
+However, you can also use the static (bigger) Boolean input.
+
+```snapblocks
+true <true>
+false <false>
+```
+
+<SnapBlocks>
+{`
+true <true>
+false <false>
+`}
+</SnapBlocks>
+
+If you create a predicate with only a Boolean input that is either a static true or false, it will automatically be set to the Boolean block in Snap<i>!</i>
+
+```snapblocks
+<<true>>
+<<false>>
+```
+
+<SnapBlocks>
+{`
+<<true>>
+<<false>>
+`}
+</SnapBlocks>
+
+## Upvars
+
+Upvars are created by putting another set of parentheses around a variable, like so.
+
+```snapblocks
+script variables ((upvar)) @addInput
+```
+
+<SnapBlocks>
+{`
+script variables ((upvar)) @addInput
+`}
+</SnapBlocks>
+
+## Categories
+
+Categories are automatically set for blocks that are in Snap<i>!</i>, or Scratch. However, you can manually set the category for any block. To set the category, put the category name after `::`.
+
+```snapblocks
+motion :: motion
+looks :: looks
+sound :: sound
+pen :: pen
+control :: control
+sensing :: sensing
+operators :: operators
+variables :: variables
+lists :: lists
+other :: other
+```
+
+<SnapBlocks>
+{`
+motion :: motion
+looks :: looks
+sound :: sound
+pen :: pen
+control :: control
+sensing :: sensing
+operators :: operators
+variables :: variables
+lists :: lists
+other :: other
+`}
+</SnapBlocks>
+
+This is not an exhaustive list of all the Categories available in snapblocks, but it's the main Categories used in Snap!
+
+It is also possible to create custom colors, by using either a hex color code, or an rgb color code.
+
+```snapblocks
+custom :: #3a5f75
+custom :: rgb(255, 100, 50)
+```
+
+<SnapBlocks>
+{`
+custom :: #3a5f75
+custom :: rgb(255, 100, 50)
+`}
+</SnapBlocks>
+
+## Icons
+
+Icons are created by putting either a `@` sign, or a `$` sign before the icon name.
+
+```snapblocks
+pause all @pause
+pause all $pause
+```
+
+<SnapBlocks>
+{`
+pause all @pause
+pause all $pause
+`}
+</SnapBlocks>
+
+### list of icons
+Here's a list of all available icons.
+
+<SnapBlocks>
+{`
+greenFlag @greenFlag :: other
+flag @flag :: other
+stopSign stop @stopSign :: other
+turnLeft @turnLeft :: other
+turnRight @turnRight :: other
+loop @loop :: other
+loopArrow @loopArrow :: other
+addInput @addInput :: other
+delInput @delInput :: other
+verticalEllipsis @verticalEllipsis :: other
+list @list :: other
+pointRight @pointRight :: other
+turtle @turtle :: other
+turtleOutline @turtleOutline :: other
+pause @pause :: other
+cloud @cloud :: other
+cloudGradient @cloudGradient :: other
+cloudOutline @cloudOutline :: other
+flash @flash :: other
+camera @camera :: other
+circle @circle :: other
+circleSolid @circleSolid :: other
+notes @notes :: other
+storage @storage :: other
+brush @brush :: other
+pipette @pipette :: other
+paintBucket bucket @paintBucket :: other
+eraser @eraser :: other
+location @location :: other
+gears @gears :: other
+gearPartial @gearPartial :: other
+gearBig @gearBig :: other
+globe @globe :: other
+globeBig @globeBig :: other
+square @square :: other
+robot @robot :: other
+arrowUp @arrowUp :: other
+arrowUpOutline @arrowUpOutline :: other
+arrowUpThin @arrowUpThin :: other
+arrowDown @arrowDown :: other
+arrowDownOutline @arrowDownOutline :: other
+arrowDownThin @arrowDownThin :: other
+arrowLeft @arrowLeft :: other
+arrowLeftOutline @arrowLeftOutline :: other
+arrowLeftThin @arrowLeftThin :: other
+arrowRight @arrowRight :: other
+arrowRightOutline @arrowRightOutline :: other
+arrowRightThin @arrowRightThin :: other
+arrowUpDownThin @arrowUpDownThin :: other
+arrowLeftRightThin @arrowLeftRightThin :: other
+`}
+</SnapBlocks>
+
+## Rings
+
+There are rings in Snap<i>!</i>, so it's possible to create rings in snapblocks.
+
+```snapblocks
+({} @addInput)
+(() @addInput)
+(<> @addInput)
+```
+
+<SnapBlocks>
+{`
+({} @addInput)
+(() @addInput)
+(<> @addInput)
+`}
+</SnapBlocks>
+
+You can put any block inside the first input, as long as it fits the shape.
+
+```snapblocks
+({move (10) steps} @addInput)
+((x position) @addInput)
+(<shown?> @addInput)
+```
+
+Now, since rings can contain scripts of multiple blocks, it's very much possible to do that here.
+
+```snapblocks
+({move (10) steps
+  say [Hello!]} @addInput)
+```
+
+<SnapBlocks>
+{`
+({move (10) steps
+  say [Hello!]} @addInput)
+`}
+</SnapBlocks>
+
+Rings can also have input names
+
+```snapblocks
+({} input names: ((#1)) ((#2)) @delInput @addInput)
+```
+
+<SnapBlocks>
+{`
+({} input names: ((#1)) ((#2)) @delInput @addInput)
+`}
+</SnapBlocks>
+
+## Define block
+
+Custom blocks are an essential part of Snap<i>!</i>, formerly known as BYOB, Build Your Own Blocks.
+
+### Snap<i>!</i> block prototype
+
+The Snap<i>!</i> block prototype (or some might say, define block) is created as such.
+
+```snapblocks
+{+ custom + block +} :: define
+```
+
+<SnapBlocks>
+{`
+{+ custom + block +} :: define
+`}
+</SnapBlocks>
+
+The plus signs are optional, but are what Snap<i>!</i> has by default. If you don't want to type in the plus signs manually, you can use `:: define+` instead.
+
+```snapblocks
+{+ custom + block +} :: define+
+```
+
+<SnapBlocks>
+{`
+{+ custom + block +} :: define+
+`}
+</SnapBlocks>
+
+When you define a block, you can use any shape or category, and the block will be automatically detected if used later (except it won't set the shape).
+
+```snapblocks
+<predicate :: motion> :: define+
+
+<predicate>
+```
+
+<SnapBlocks>
+{`
+<predicate :: motion> :: define+
+
+<predicate>
+`}
+</SnapBlocks>
+
+Custom blocks can have inputs, which can be added by adding upvars, the same way that they are shown in Snap<i>!</i>
+
+```snapblocks
+{block ((string)) ((number #)) ((boolean ?)) ((default = hi)) :: looks} :: define+
+
+block [string] (5) <> [hi]
+```
+
+<SnapBlocks>
+{`
+{block ((string)) ((number #)) ((boolean ?)) ((default = hi)) :: looks} :: define+
+
+block [string] (5) <> [hi]
+`}
+</SnapBlocks>
+
+You can also set inputs using their input syntax.
+
+```snapblocks
+{block [string] (number) <boolean> :: looks} :: define+
+
+block [string] (5) <>
+```
+
+<SnapBlocks>
+{`
+{block [string] (number) <boolean> :: looks} :: define+
+
+block [string] (5) <>
+`}
+</SnapBlocks>
+
+### Scratch define
+
+The Scratch define block can be created by typing the word `define` then the custom block withing curly brackets.
+
+```snapblocks
+define {custom block [string] (number) <boolean>}
+
+custom block [] () <>
+```
+
+<SnapBlocks blockStyle="scratch2">
+{`
+define {custom block [string] (number) <boolean>}
+
+custom block [] () <>
+`}
+</SnapBlocks>
+
+## Multiline blocks
+
+Snap<i>!</i> allows for placing newlines in blocks, which can be created like so.
+
+In a command block, you have to either place a backslash `\` before a newline, or use `\n`.
+
+```snapblocks
+multiline \
+block \n cool
+```
+
+<SnapBlocks>
+{`
+multiline \
+block \n cool
+`}
+</SnapBlocks>
+
+Reporters and predicates are easier, because you can just hit enter.
+
+```snapblocks
+(multiline
+ reporter)
+<multiline
+ predicate>
+```
+
+<SnapBlocks>
+{`
+(multiline
+ reporter)
+<multiline
+ predicate>
+`}
+</SnapBlocks>
+
+However, you cannot put multiple inputs vertically on the same line, like in the <SnapBlocks inline="true">{`(pipe [] @arrowRight (() @verticalEllipsis @addInput))`}</SnapBlocks> block.
+
+## Multiline input
+
+As you may know, you can create a multiline input in Snap<i>!</i> Thankfully it's similar to creating multiline reporters and predicates.
+
+```snapblocks
+multiline [multiline
+text]
+```
+
+<SnapBlocks>
+{`
+multiline [multiline
+text]
+`}
+</SnapBlocks>
+
+Make sure not to indent multiline inputs, as all spaces are shown within an input.
 
 ## Comments
 
-Comments are created with two slashes: `// comment` after a block.
+Comments can be added on blocks or by itself, by typing `//` and then the comment text.
 
-```
-move (10) steps // is that too far?
-```
-
-<SnapBlocks>{`move (10) steps // is that too far?`}</SnapBlocks>
-
-## Custom Blocks
-
-If one tries to show a custom block, it will appear obsolete (red)
-because it has not been defined.
-
-```
-jump
+```snapblocks
+// Comment
+block // comment
 ```
 
-<SnapBlocks>{`jump`}</SnapBlocks>
-
-## Scratch Custom Blocks
-There are differences between Scratch custom blocks and Snap<i>!</i> custom blocks.
-
-A definition can be created by writing "define" followed by the name of the block inside curly brackets:
-
-```
-define {jump}
-repeat (10) {
-    change y by (4)
-}
-```
-
-<SnapBlocks>
-{`define {jump}
-repeat (10) {
-    change y by (4)
-}`}
-</SnapBlocks>
-
-The brackets were not needed in scratchblocks, but since Snap<i>!</i> has a block with the label `define`, and scratchblocks forced the special formatting with no way to turn it off. This was specifically changed in snapblocks to require curly brackets to avoid these issues. If you want to keep the old syntax, you can add the `define` override.
-
-```
-define jump :: define
-repeat (10) {
-    change y by (4)
-}
-```
-
-<SnapBlocks>
-{`define jump :: define
-repeat (10) {
-    change y by (4)
-}`}
-</SnapBlocks>
-
-Number, boolean, and string arguments can be added:
-
-```
-define {jump (height) <gravity on?> [message]}
-```
-
-<SnapBlocks>{`define {jump (height) <gravity on?> [message]}`}</SnapBlocks>
-
-Once a define hat has been made, one can then use the block *inside the
-same \<scratchblocks\> tag*, and it will no longer appear obsolete.
-
-```
-jump
-
-define jump
-repeat (10) {
-    change y by (4)
-}
-```
-
-<SnapBlocks>
-{
-    `jump
-
-    define jump
-    repeat (10) {
-        change y by (4)
-    }`}
-</SnapBlocks>
-
-### Custom Block Inputs
-
-If one tries to use an input reporter without making a block definition
-first, it will appear as a variable.
-
-```
-say (height)
-```
-
-<SnapBlocks>{`say (height)`}</SnapBlocks>
-
-But if it is put below a block definition, it will render as an input
-reporter:
-
-```
-define jump (height)
-say (input)
-```
-
-<SnapBlocks> {`define jump (height) say (height)`} </SnapBlocks>
-
-## List Reporters
-
-If one tries to write a list reporter, it will look like a variable
-reporter, because the plugin has no way of telling them apart.
-
-```
-say (list of Scratch team members)
-```
-
-<SnapBlocks>{`say (list of Scratch team members)`}</SnapBlocks>
-
-However, if one has used the list in a **list block** *inside the same
-\<scratchblocks\> tag*, then it will render correctly:
-
-```
-add [mres] to [list of Scratch team members v]
-add [paddle2see] to [list of Scratch team members v]
-add [harakou] to [list of Scratch team members v]
-say (list of Scratch team members)
-```
-
-<SnapBlocks>
-{`add [mres] to [list of Scratch team members v]
-add [paddle2see] to [list of Scratch team members v]
-add [harakou] to [list of Scratch team members v]
-say (list of Scratch team members)`}
-</SnapBlocks>
-
-If a list block is not wanted or needed inside the same
-\<scratchblocks\> tag, `:: list` can be used:
-
-```
-say (list of Scratch team members:: list)
-```
-
-<SnapBlocks>
-{`say (list of Scratch team members:: list)`}
-</SnapBlocks>
-
-## Shortening Source Code
-
-It is possible to make the source of ScratchBlocks code slightly shorter
-by removing unnecessary code. No spaces are necessary between an insert
-and the block text. Also, closing brackets (`]`) and parentheses (`)`)
-can be left off at the end of a line. Therefore, the following two
-snippets render identically, though the first is 226 characters, and the
-second only 183:
-
-```
-when gf clicked
-ask [n=] and wait
-set [n v] to (answer)
-set [i v] to [0]
-repeat until <(n) = [1]>
-if <((n) mod (2)) = [0]> then
-set [n v] to ((n) / (2))
-else
-set [n v] to (((3) * (n)) + (1))
-end
-change [i v] by (1)
-end
-say (i)
-
-when gf clicked
-ask[n=]and wait
-set[n v]to(answer
-set[i v]to[0
-repeat until<(n)=[1
-if<((n)mod(2))=[0]>then
-set[n v]to((n)/(2
-else
-set[n v]to(((3)*(n))+(1
-end
-change[i v]by(1
-end
-say(i
-```
-
-<SnapBlocks>
-{
-    `when gf clicked
-ask [n=] and wait
-set [n v] to (answer)
-set [i v] to [0]
-repeat until <(n) = [1]>
-if <((n) mod (2)) = [0]> then
-set [n v] to ((n) / (2))
-else
-set [n v] to (((3) * (n)) + (1))
-end
-change [i v] by (1)
-end
-say (i)
-
-when gf clicked
-ask[n=]and wait
-set[n v]to(answer
-set[i v]to[0
-repeat until<(n)=[1
-if<((n)mod(2))=[0]>then
-set[n v]to((n)/(2
-else
-set[n v]to(((3)*(n))+(1
-end
-change[i v]by(1
-end
-say(i`
-}</SnapBlocks>
-
-However, this is considered poor style and is not recommended.
-
-## Hacks
-
-The blocks plugin offers hacks to allow representation of scripts from
-Scratch Modifications and old or
-unreleased versions of Scratch.
-
-// For a full tutorial on how to use scratchblocks hacks, see [this
-// topic](topic:55586 "wikilink").
-
-### Color and Shape Changing
-
-The color and shape of a block can be changed. This can be useful for
-forcing non-Scratch blocks to appear correctly. Note that only color
-changing with the legacy syntax works in the old version. The legacy
-syntax is obsolete (it no longer works since scratchblocks3).
-
-
-<table>
-<colgroup>
-<col />
-<col />
-<col />
-</colgroup>
-<thead>
-<tr>
-<th width="30%"><p>Feature</p></th>
-<th width="50%"><p>Code</p></th>
-<th width="20%"><p>Result</p></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><p>Changing category (works for any kind of block)</p></td>
-<td>
-```
-abc:: looks
-say [I'm not a Motion block!]::motion
-eat (pen color:: pen):: control
-if <touching (mouse pointer v)?:: list> then
-   die:: grey
-end
-```
-</td>
-<td>
-<SnapBlocks>
-{`abc:: looks
-say [I'm not a Motion block!]::motion
-eat (pen color:: pen):: control
-if <touching (mouse pointer v)?:: list> then
-   die:: grey
-end`}
-</SnapBlocks></td>
-</tr>
-<tr>
-<td><p>Changing color</p></td>
-<td>
-```
-think [Arbitrary colors?]:: #228b22
-```
-</td>
-<td>
-<SnapBlocks>
-{`think [Arbitrary colors?]::#228b22`}
-</SnapBlocks></td>
-</tr>
-<tr>
-<td><p>Changing shape</p></td>
-<td>
-```
-abc:: events hat
-def:: motion stack
-ghi:: pen reporter
-jkl:: operators boolean
-```
-</td>
-<td>
-<SnapBlocks>
-{`abc:: events hat def:: motion stack ghi:: pen
-reporter jkl:: operators boolean`}
-</SnapBlocks>
-</td>
-</tr>
-<tr>
-<td><p>Creating C blocks and changing category</p></td>
-<td>
-```
-mno {
-    ...
-}:: sensing
-```
-</td>
-<td>
-<SnapBlocks>
-{`mno {
-    ...
-}:: sensing`}
-</SnapBlocks>
-</td>
-</tr>
-<tr>
-<td><p>C blocks with multiple branches</p></td>
-<td>
-```
-pqr {
-    ...
-} stu {
-    ...
-} vwx:: sound
-```
-</td>
-<td>
-<SnapBlocks>
-{`pqr {
-   ...
-} stu {
-   ...
-} vwx:: sound`}
-</SnapBlocks>
-</td>
-</tr>
-<tr>
-<td><p>C block with cap</p></td>
-<td>
-```
-yz {
-    ...
-}:: motion cap
-```
-</td>
-<td>
-<SnapBlocks>
-{`yz {
-   ...
-}:: motion cap`}
-</SnapBlocks></td>
-</tr>
-<tr>
-<td><p>Adding icons</p></td>
-<td>
-```
-@greenFlag @stopSign @turnRight @loopArrow:: grey
-```
-</td>
-<td>
-<SnapBlocks>
-{`@greenFlag @stopSign @turnRight @loopArrow:: grey`}
-</SnapBlocks></td>
-</tr>
-</tbody>
-</table>
-
-
-### Snap*!*
-
-The new plugin also supports features specific to Snap*!*, such as
-"rings". Other blocks in Snap*!* can be created using the color/shape
-hacks above.
-
-```
-run ({create clone:: control} @addInput:: grey ring):: control
-
-<() @addInput:: grey ring>
-
-say (http:// [snap.berkeley.edu]:: sensing)
-
-((6) × (7):: operators)
-
-(join [hello ] [world] @delInput @addInput:: operators)
-
-script variables ((foo):: grey) ((bar):: grey) @delInput @addInput:: grey
-
-warp {
-    move (10) steps
-} :: grey
-
-report [Done!]:: control cap
-
-(<> @addInput) // without even the:: grey ring
-```
-
-which produces these blocks:
-
-<SnapBlocks>
-{`run ({create clone:: control} @addInput:: grey ring):: control
-
-<() @addInput:: grey ring>
-
-say (http:// [snap.berkeley.edu]:: sensing)
-
-((6) × (7):: operators)
-
-(join [hello ] [world] @delInput @addInput:: operators)
-
-script variables ((foo):: grey) ((bar):: grey) @delInput @addInput:: grey
-
-warp {
-    move (10) steps
-} :: grey
-
-report [Done!]:: control cap
-
-(<> @addInput) // without even the:: grey ring`}
-</SnapBlocks>
-
-### GP
-
-This plugin also includes hacks to GP.
-<!--
 <SnapBlocks>
 {`
-when tracking (mouse x:: variables) (mouse y:: variables):: hat control
-
-((1) !=\\\\ (0):: operators)
-
-define(a function:: motion):: custom hat return (1):: control
-
-say (pi:: operators):: motion
-
-when I receive \\[go\\]:: control
-
-wait @addInput:: control
-
-(isNil \[obj v\\]:: operators)
-
-(touching mouse:: sensing)
-
-((--(:: \\#fff):: operators):: operators)
-
-if (--(:: \\#fff):: operators) { } @addInput:: control
+// Comment
+block // comment
 `}
 </SnapBlocks>
--->
-
-## Backslash
-
-A backslash (\\ is a character that cancels out any special
-functionality of the next character, making it show up as normal text.
-If a character with special functionality, like a closing bracket (\]),
-needs to be rendered as normal text, put a backslash before it.
-
-```
-say []]
-```
-
-<SnapBlocks>{`say \[\]\]`}</SnapBlocks>
-
-```
-say [\]]
-```
-
-<SnapBlocks>{`say \[\\\]`}</SnapBlocks>
-
-This is useful in certain situations, where backslashes are necessary to
-properly display a block:
-
-```
-play drum (\(1\) Snare Drum v) for (0.25) beats
-```
-
-<SnapBlocks>
-{`play drum (\\(1\\) Snare Drum v) for (0.25) beats`}
-</SnapBlocks>
-
