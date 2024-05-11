@@ -1,3 +1,7 @@
+# Style Guide
+
+When writing snapblocks, it's important to write snapblocks as clean and as readable as possible. This guide will help you to write clean snapblocks code that anyone can read.
+
 ## Overrides
 
 Always put a space before and after `::`.
