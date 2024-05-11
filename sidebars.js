@@ -25,6 +25,7 @@ const sidebars = {
   tutorialSidebar: [
     'intro',
     'syntax/syntax',
+    'style guide/style guide',
     {
       type: 'category',
       label: 'library',
