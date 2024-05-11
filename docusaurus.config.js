@@ -63,7 +63,12 @@ const config = {
         items: [
           {
             position: 'left',
-            label: 'syntax',
+            label: 'Playground',
+            href: 'https://snap-blocks.github.io/',
+          },
+          {
+            position: 'left',
+            label: 'Syntax',
             href: '/syntax/',
           },
           {
