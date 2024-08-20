@@ -143,6 +143,32 @@ say [Hello world!]
 `}
 </SnapBlocks>
 
+String inputs can also be larger (without any text). Just wrap the value inside with curly brackets.
+
+```snapblocks
+(first word of [{}] :: operators)
+(first word of [{hi}] :: operators)
+```
+
+<SnapBlocks>
+{`
+(first word of [{}] :: operators)
+(first word of [{hi}] :: operators)
+`}
+</SnapBlocks>
+
+These curly brackets also go around a dropdown `v` (although it's about the same size with an empty normal dropdown input').
+
+```snapblocks
+(text input dropdown [{hi v}] :: operators)
+```
+
+<SnapBlocks>
+{`
+(text input dropdown [{hi v}] :: operators)
+`}
+</SnapBlocks>
+
 ### Dropdowns
 
 Dropdowns can be created by putting a `v` right before the closing bracket in inputs. There are 2 types of dropdowns, editable `v`, and read-only `V`.
@@ -172,6 +198,36 @@ Number dropdowns can have anything in it.
 <SnapBlocks>
 {`
 (item (last v) of @list)
+`}
+</SnapBlocks>
+
+### Formatting
+
+You can also format string and number inputs to make them italic or monospace.
+Just wrap the text in the slot with square brackets `[]` for italics, and backticks for monospace ```.
+The formatting does not go around the ` v` in inputs with dropdowns.
+
+```snapblocks
+(item ([last] v) of @list)
+(JavaScript function \( @addInput \)) \{ [`code`] \}
+```
+
+<SnapBlocks>
+{`
+(item ([last] v) of @list)
+(JavaScript function \\( @addInput \\) \\{ [\`code\`] \\} )
+`}
+</SnapBlocks>
+
+There is also a special value that can be used inside inputs, `[__shout__go__]`, which turns into a green flag.
+
+```snapblocks
+broadcast [[__shout__go__] V] @addInput
+```
+
+<SnapBlocks>
+{`
+broadcast [[__shout__go__] V] @addInput
 `}
 </SnapBlocks>
 
