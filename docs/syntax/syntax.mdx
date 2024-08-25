@@ -539,6 +539,80 @@ Rings can also have input names
 `}
 </SnapBlocks>
 
+## Alternate block labels
+
+Some blocks have alternate ways of writing them.
+
+```snapblocks
+when @greenFlag clicked
+when flag clicked
+when gf clicked
+when green flag clicked
+
+turn @clockwise (15) degrees
+turn @turnRight (15) degrees
+turn cw (15) degrees
+turn right (15) degrees
+
+turn @counterclockwise (15) degrees
+turn @turnLeft (15) degrees
+turn ccw (15) degrees
+turn left (15) degrees
+```
+
+<SnapBlocks>
+{`
+when @greenFlag clicked
+when flag clicked
+when gf clicked
+when green flag clicked
+
+turn @clockwise (15) degrees
+turn @turnRight (15) degrees
+turn cw (15) degrees
+turn right (15) degrees
+
+turn @counterclockwise (15) degrees
+turn @turnLeft (15) degrees
+turn ccw (15) degrees
+turn left (15) degrees
+`}
+</SnapBlocks>
+
+There are some blocks that also have some special symbols in them that aren't on most keyboards, so there are some shortcuts
+
+```snapblocks
+<[] ≤ [] @delInput @verticalEllipsis @addInput>
+<[] \<= [] @delInput @verticalEllipsis @addInput>
+
+<[] ≥ [] @delInput @verticalEllipsis @addInput>
+<[] \>= [] @delInput @verticalEllipsis @addInput>
+
+(atan2 () ÷ ())
+(atan2 () / ())
+
+(() × () @delInput @verticalEllipsis @addInput)
+(() x () @delInput @verticalEllipsis @addInput)
+```
+
+The backslash is important because it tells snap to not close the block.
+
+<SnapBlocks>
+{`
+  <[] ≤ []>
+  <[] \\<= []>
+
+  <[] ≥ []>
+  <[] \\>= []>
+
+  (atan2 () ÷ ())
+  (atan2 () / ())
+
+  (() × () @delInput @verticalEllipsis @addInput)
+  (() x () @delInput @verticalEllipsis @addInput)
+`}
+</SnapBlocks>
+
 ## Define block
 
 Custom blocks are an essential part of Snap<i>!</i>, formerly known as BYOB, Build Your Own Blocks.
