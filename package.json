@@ -22,7 +22,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "snapblocks": "^1.8.1",
-    "snapblocks-react": "file:../snapblocks-react"
+    "snapblocks-react": "^1.2.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.7.0",
