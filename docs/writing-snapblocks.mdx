@@ -1,0 +1,1053 @@
+
+# Writing Snapblocks
+On the [Snap<i>!</i> forum](https://forum.snap.berkeley.edu/), block code must be inserted between the `[snapblocks]...[/snapblocks]` bbcode tags, while on the [Snap<i>!</i> Wiki](https://snapwiki.miraheze.org/), they can be inserted between `<snapblocks>...</snapblocks>` tags. Scripts can also be inserted inline between `[sb]...[/sb]` or `<sb>...</sb>` tags to avoid breaking lines.
+
+## Basic Syntax
+Snapblocks tries to match the code you write as close as possible. The block text is ***only*** used to find the correct color.
+
+The basic syntax of the Block Plugin is as follows:
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Use</th>
+    <th>Example</th>
+    <th>Result</th>
+  </tr>
+  <tr>
+    <td>
+    ```
+    block name
+    ```
+    </td>
+    <td>a block</td>
+    <td>
+    ```
+    erase all
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`erase all`}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    (var)
+    ```
+    </td>
+    <td>variable or reporter</td>
+    <td>
+    ```
+    (x position)
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    (x position)
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    <predicate>
+    ```
+    </td>
+    <td>predicate block</td>
+    <td>
+    ```
+    <shown?>
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    <shown?>
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    block name {
+      c-shape
+    }
+    ```
+    </td>
+    <td>c-shape block</td>
+    <td>
+    ```
+    if <> {
+      
+    }
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    if <> {
+      
+    }
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    [text]
+    ```
+    </td>
+    <td>string input</td>
+    <td>
+    ```
+    say [Hello!]
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`say [Hello!]`}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    (12.34)
+    ```
+    </td>
+    <td>number input</td>
+    <td>
+    ```
+    wait (0.5) seconds
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`wait (0.5) seconds`}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    (item v)
+    [item v]
+    ```
+    </td>
+    <td>editable dropdown</td>
+    <td>
+    ```
+    (item (1 v) of @list)
+    (split [Hello world!] by [  v])
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    (item (1 v) of @list)
+    (split [Hello world!] by [  v])
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    (item V)
+    [item V]
+    ```
+    </td>
+    <td>read-only dropdown</td>
+    <td>
+    ```
+    (read-only (item V))
+    switch to costume [costume1 V]
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    (read-only (item V))
+    switch to costume [costume1 V]
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    [#hex]
+    [rgb(r, g, b)]
+    ```
+    </td>
+    <td>color input</td>
+    <td>
+    ```
+    set pen color to [#911a44]
+    set pen color to [rgb(145, 26, 68)]
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    set pen color to [#911a44]
+    set pen color to [rgb(145, 26, 68)]
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    <>
+    <t>
+    <f>
+    <true>
+    <false>
+    ```
+    </td>
+    <td>boolean input</td>
+    <td>
+    ```
+    if <<> and <<t> or <f>>> {
+      set [on V] to <<true>>
+      set [off V] to <<false>>
+    }
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    if <<> and <<t> or <f>>> {
+      set [on V] to <<true>>
+      set [off V] to <<false>>
+    }
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    {+ custom + block +} :: define
+    ```
+    </td>
+    <td>Define custom blocks. See [Custom Blocks](#custom-blocks).</td>
+    <td>
+    ```
+    {+ custom + block + } :: define
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    {+ custom + block + } :: define
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    // comment
+    /* multiline
+    comment */
+    ```
+    </td>
+    <td>comment</td>
+    <td>
+    ```
+    show // now you see me
+    hide /* now
+    you don't */
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    show // now you see me
+    hide /* now
+    you don't */
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    ...
+    ```
+    </td>
+    <td>a placeholder block</td>
+    <td>
+    ```
+    if <(var) = [this]> {
+      ...
+    }
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    if <(var) = [this]> {
+      ...
+    }
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    ((upvar))
+    ```
+    </td>
+    <td>Create upvar</td>
+    <td>
+    ```
+    script variables ((a)) @addInput
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    script variables ((a)) @addInput
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+</table>
+
+## Advanced Syntax
+The following is some more in-depth syntax of snapblocks.
+
+<table>
+  <tr>
+    <th>Override</th>
+    <th>Use</th>
+    <th>Example</th>
+    <th>Result</th>
+  </tr>
+  <tr>
+    <td>
+    ```
+    :: [override ...]
+    ```
+    </td>
+    <td>Add overrides to blocks. See [Block Overrides](#block-overrides)</td>
+    <td>
+    ```
+    custom :: motion hat
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    custom :: motion hat
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    ({} @addInput)
+    ({} @>)
+    ```
+    </td>
+    <td>Grey rings. See [Rings](#rings)</td>
+    <td>
+    ```
+    ({} @addInput)
+    ({} @>)
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    ({} @addInput)
+    ({} @>)
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    @icon
+    $icon
+    ```
+    </td>
+    <td>Icons such as `@greenFlag`. See [Icons](#icons)</td>
+    <td>
+    ```
+    when @stopSign clicked :: control hat
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    when @stopSign clicked :: control hat
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    $[icon OR text]-[scale]-[r]-[g]-[b]
+    ```
+    </td>
+    <td>Change the icon scale and color. This is the same syntax used in Snap<i>!</i> See [Icon properties](#icon-properties)</td>
+    <td>
+    ```
+    $storage-2
+    @pipette-0.5-0-255-0
+    $text-1.5-255-0-0
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    $storage-2
+    @pipette-0.5-0-255-0
+    $text-1.5-255-0-0
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    [[Italic input]]
+    ```
+    </td>
+    <td>Create italic text in inputs.</td>
+    <td>
+    ```
+    (item ([last] v) of @list)
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    (item ([last] v) of @list)
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    [`code`]
+    ```
+    </td>
+    <td>Create monospace code input</td>
+    <td>
+    ```
+    (JavaScript function \( @addInput \) \{ [`console.log('JavaScript code')`] \}
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    (JavaScript function \\( @addInput \\) \\{ [\`console.log('JavaScript code')\`] \\}
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    [{Long text input}]
+    ```
+    </td>
+    <td>Create bigger text input</td>
+    <td>
+    ```
+    (first word of [{}] :: operators)
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    (first word of [{}] :: operators)
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    [multiline
+    input]
+    ```
+    </td>
+    <td>Create a multiline text input</td>
+    <td>
+    ```
+    (multiline [multiline
+    text] :: operators)
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    (multiline [multiline
+  text] :: operators)
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    \
+    ```
+    </td>
+    <td>A backslash can be used to escape characters that are part of the syntax.</td>
+    <td>
+    ```
+    say [hello \[ world \]]
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    say [hello \\[ world \\]]
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    multiline \
+    block
+    ```
+    </td>
+    <td>Create multiline block</td>
+    <td>
+    ```
+    multiline \
+    block :: looks
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    multiline \\
+    block :: looks
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    (multiline
+     reporter)
+    ```
+    </td>
+    <td>Multiline reporter</td>
+    <td>
+    ```
+    (multiline
+     reporter)
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    (multiline
+     reporter)
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    <multiline
+     predicate>
+    ```
+    </td>
+    <td>Multiline predicate</td>
+    <td>
+    ```
+    <multiline
+     predicate>
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    <multiline
+     predicate>
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    ```
+    loop {
+
+    } @loop
+    ```
+    </td>
+    <td>Add loop arrow after c-shape</td>
+    <td>
+    ```
+    do while <> {
+      ...
+    } @loop :: control
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    do while <> {
+      ...
+    } @loop :: control
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+</table>
+
+### Block Overrides
+Block overrides allow you to override block properties, such as category and shape.
+
+Syntax:
+```
+:: [override ...]
+```
+
+#### Categories
+All the categories in snap can be used.
+
+| Category  | Result                                              |
+| --------- | --------------------------------------------------- |
+| motion    | <SnapBlocks>{`motion :: motion`}</SnapBlocks>       |
+| looks     | <SnapBlocks>{`looks :: looks`}</SnapBlocks>         |
+| sound     | <SnapBlocks>{`sound:: sound`}</SnapBlocks>          |
+| pen       | <SnapBlocks>{`pen :: pen`}</SnapBlocks>             |
+| control   | <SnapBlocks>{`control :: control`}</SnapBlocks>     |
+| sensing   | <SnapBlocks>{`sensing :: sensing`}</SnapBlocks>     |
+| operators | <SnapBlocks>{`operators :: operators`}</SnapBlocks> |
+| variables | <SnapBlocks>{`variables :: variables`}</SnapBlocks> |
+| lists     | <SnapBlocks>{`lists :: lists`}</SnapBlocks>         |
+| other     | <SnapBlocks>{`other :: other`}</SnapBlocks>         |
+| obsolete  | <SnapBlocks>{`obsolete :: obsolete`}</SnapBlocks>   |
+
+However you can also use the Scratch categories and extensions
+
+| Category          | Result                                                                                    |
+| ----------------- | ----------------------------------------------------------------------------------------- |
+| events            | <SnapBlocks blockStyle="scratch3" scale="0.675">{`events :: events`}</SnapBlocks>         |
+| list              | <SnapBlocks blockStyle="scratch3" scale="0.675">{`list :: list`}</SnapBlocks>             |
+| grey / gray       | <SnapBlocks blockStyle="scratch3" scale="0.675">{`grey / gray :: grey`}</SnapBlocks>      |
+| custom            | <SnapBlocks blockStyle="scratch3" scale="0.675">{`custom :: custom`}</SnapBlocks>         |
+| extension         | <SnapBlocks blockStyle="scratch3" scale="0.675">{`extension :: extension`}</SnapBlocks>   |
+| music             | <SnapBlocks blockStyle="scratch3" scale="0.675">{`music :: music`}</SnapBlocks>           |
+| video             | <SnapBlocks blockStyle="scratch3" scale="0.675">{`video :: video`}</SnapBlocks>           |
+| tts / text2speech | <SnapBlocks blockStyle="scratch3" scale="0.675">{`tts / text2speech :: tts`}</SnapBlocks> |
+| translate         | <SnapBlocks blockStyle="scratch3" scale="0.675">{`translate :: translate`}</SnapBlocks>   |
+| wedo / wedo2      | <SnapBlocks blockStyle="scratch3" scale="0.675">{`wedo / wedo2 :: wedo`}</SnapBlocks>     |
+| ev3               | <SnapBlocks blockStyle="scratch3" scale="0.675">{`ev3 :: ev3`}</SnapBlocks>               |
+| microbit          | <SnapBlocks blockStyle="scratch3" scale="0.675">{`microbit :: microbit`}</SnapBlocks>     |
+| makeymakey        | <SnapBlocks blockStyle="scratch3" scale="0.675">{`makeymakey :: makeymakey`}</SnapBlocks> |
+| gdxfor            | <SnapBlocks blockStyle="scratch3" scale="0.675">{`gdxfor :: gdxfor`}</SnapBlocks>         |
+| boost             | <SnapBlocks blockStyle="scratch3" scale="0.675">{`boost :: boost`}</SnapBlocks>           |
+
+If you wish to use a custom category color, that's possible in two different ways, `#hex` or `rgb(r, g, b)`
+
+```
+custom :: #3a5f75
+custom :: rgb(255, 100, 50)
+```
+
+<SnapBlocks>
+{`
+custom :: #3a5f75
+custom :: rgb(255, 100, 50)
+`}
+</SnapBlocks>
+
+#### Block shapes
+There are more block shapes than just `(reporters)` and `<predicates>`, however they're not created in the same way, they're created with block overrides.
+
+| Shape               | Result                                                                      |
+| ------------------- | --------------------------------------------------------------------------- |
+| command / stack     | <SnapBlocks>{`command/stack :: command`}</SnapBlocks>                       |
+| reporter            | <SnapBlocks>{`reporter :: reporter`}</SnapBlocks>                           |
+| ring                | <SnapBlocks>{`ring :: ring`}</SnapBlocks>                                   |
+| predicate / boolean | <SnapBlocks>{`predicate / boolean :: predicate`}</SnapBlocks>               |
+| hat                 | <SnapBlocks>{`hat :: hat`}</SnapBlocks>                                     |
+| condition           | <SnapBlocks>{`condition:: condition`}</SnapBlocks>                          |
+| cap                 | <SnapBlocks>{`cap :: cap`}</SnapBlocks>                                     |
+| cat                 | <SnapBlocks blockStyle="scratch3" scale="0.675">{`cat :: cat`}</SnapBlocks> |
+
+#### Santa Hats
+
+For Christmas 2024, santa hats were added to Snap<i>!</i> temporarily, which added picture relating to Christmas on hat blocks. These can also be created in snapblocks using the `santa` override.
+
+<table>
+  <tr>
+    <td>
+      ```
+      when flag clicked :: santa
+      when [space V] key pressed :: santa
+      when I am [clicked V] :: santa
+      when <> :: santa
+      when <> :: santa condition
+      when I receive [ V] @addInput :: santa
+      when I start as a clone :: santa
+      when [anything V] is edited @addInput :: santa
+      when slot [ V] signals [menu V] :: santa
+      {custom} :: define+ santa
+      {custom :: santa} :: define+ santa
+      ```
+    </td>
+    <td>
+      <SnapBlocks>
+      {`
+      when flag clicked :: santa
+      when [space V] key pressed :: santa
+      when I am [clicked V] :: santa
+      when <> :: santa
+      when <> :: santa condition
+      when I receive [ V] @addInput :: santa
+      when I start as a clone :: santa
+      when [anything V] is edited @addInput :: santa
+      when slot [ V] signals [menu V] :: santa
+      {custom} :: define+ santa
+      {custom :: santa} :: define+ santa
+      `}
+      </SnapBlocks>
+    </td>
+  </tr>
+</table>
+
+As you can see, each hat block has its own hat, but you can still use any hat you want.
+
+| Hat                     | Result                                                                         |
+| ----------------------- | ------------------------------------------------------------------------------ |
+| santa-hat               | <SnapBlocks>{`santa-hat :: santa-hat`}</SnapBlocks>                            |
+| santa-trumpet           | <SnapBlocks>{`santa-trumpet :: santa-trumpet`}</SnapBlocks>                    |
+| santa-star              | <SnapBlocks>{`santa-star :: santa-star`}</SnapBlocks>                          |
+| santa-candles           | <SnapBlocks>{`santa-candles :: santa-candles`}</SnapBlocks>                    |
+| santa-advent             | <SnapBlocks>{`santa-advent :: santa-advent`}</SnapBlocks>                        |
+| santa-gift              | <SnapBlocks>{`santa-gift :: santa-gift`}</SnapBlocks>                          |
+| santa-present           | <SnapBlocks>{`santa-present :: santa-present`}</SnapBlocks>                    |
+| santa-pretzel           | <SnapBlocks>{`santa-pretzel :: santa-pretzel`}</SnapBlocks>                    |
+| santa-letter            | <SnapBlocks>{`santa-letter :: santa-letter`}</SnapBlocks>                      |
+| santa-train             | <SnapBlocks>{`santa-train :: santa-train`}</SnapBlocks>                        |
+| santa-house             | <SnapBlocks>{`santa-house :: santa-house`}</SnapBlocks>                        |
+| santa-gingerbread       | <SnapBlocks>{`santa-gingerbread :: santa-gingerbread`}</SnapBlocks>            |
+| santa-gingerbread-house | <SnapBlocks>{`santa-gingerbread-house:: santa-gingerbread-house`}</SnapBlocks> |
+
+#### Other overrides
+There are more overrides that can be used.
+
+<table>
+  <tr>
+    <th>Override</th>
+    <th>Use</th>
+    <th>Example</th>
+    <th>Result</th>
+  </tr>
+  <tr>
+    <td>
+    ```
+    reset
+    ```
+    </td>
+    <td>Reset all default block formatting.</td>
+    <td>
+    ```
+    forever {
+    
+    } :: reset
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    forever {
+    
+    } :: reset
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+  {/* For some reason this isn't working, and I'm not sure if I want to fix it */}
+  {/* <tr>
+    <td>
+    ```
+    loop
+    ```
+    </td>
+    <td>Add loop arrow</td>
+    <td>
+    ```
+    do while <> {
+      ...
+    } :: loop control
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    do while <> {
+      ...
+    } :: loop control
+    `}
+    </SnapBlocks>
+    </td>
+  </tr> */}
+  <tr>
+    <td>
+    ```
+    local
+    ```
+    </td>
+    <td>Sprite-only (local) block</td>
+    <td>
+    ```
+    block :: local
+    ```
+    </td>
+    <td>
+    <SnapBlocks>
+    {`
+    block :: local
+    `}
+    </SnapBlocks>
+    </td>
+  </tr>
+</table>
+
+### Rings
+Creating grey rings is very simple.
+
+| Ring             | Result                                      |
+| ---------------- | ------------------------------------------- |
+| `({} @addInput)` | <SnapBlocks>{`({} @addInput)`}</SnapBlocks> |
+| `(() @addInput)` | <SnapBlocks>{`(() @addInput)`}</SnapBlocks> |
+| `(<> @addInput)` | <SnapBlocks>{`(<> @addInput)`}</SnapBlocks> |
+| `({...} input names: ((#1)) @delInput @addInput)` | <SnapBlocks>{`({...} input names: ((#1)) @delInput @addInput)`}</SnapBlocks> |
+
+### Icons
+Icons can be created by using `@` or `$` followed by the icon name, for Example, `@greenFlag`.
+
+#### List of icons
+| Icon                | Result                                                       |
+| ------------------- | ------------------------------------------------------------ |
+| greenFlag           | <SnapBlocks>{`@greenFlag :: control`}</SnapBlocks>           |
+| flag                | <SnapBlocks>{`@flag :: control`}</SnapBlocks>                |
+| stopSign            | <SnapBlocks>{`@stopSign :: control`}</SnapBlocks>            |
+| stop                | <SnapBlocks>{`@stop :: control`}</SnapBlocks>                |
+| octagon             | <SnapBlocks>{`@octagon :: control`}</SnapBlocks>             |
+| turnLeft            | <SnapBlocks>{`@turnLeft :: control`}</SnapBlocks>            |
+| turnRight           | <SnapBlocks>{`@turnRight :: control`}</SnapBlocks>           |
+| clockwise           | <SnapBlocks>{`@clockwise :: control`}</SnapBlocks>           |
+| counterclockwise    | <SnapBlocks>{`@counterclockwise :: control`}</SnapBlocks>    |
+| loop                | <SnapBlocks>{`@loop :: control`}</SnapBlocks>                |
+| loopArrow           | <SnapBlocks>{`@loopArrow :: control`}</SnapBlocks>           |
+| addInput            | <SnapBlocks>{`@addInput :: control`}</SnapBlocks>            |
+| delInput            | <SnapBlocks>{`@delInput :: control`}</SnapBlocks>            |
+| verticalEllipsis    | <SnapBlocks>{`@verticalEllipsis :: control`}</SnapBlocks>    |
+| list                | <SnapBlocks>{`@list :: control`}</SnapBlocks>                |
+| pointRight          | <SnapBlocks>{`@pointRight :: control`}</SnapBlocks>          |
+| turtle              | <SnapBlocks>{`@turtle :: control`}</SnapBlocks>              |
+| turtleOutline       | <SnapBlocks>{`@turtleOutline :: control`}</SnapBlocks>       |
+| pause               | <SnapBlocks>{`@pause :: control`}</SnapBlocks>               |
+| cloud               | <SnapBlocks>{`@cloud :: control`}</SnapBlocks>               |
+| cloudGradient       | <SnapBlocks>{`@cloudGradient :: control`}</SnapBlocks>       |
+| cloudOutline        | <SnapBlocks>{`@cloudOutline :: control`}</SnapBlocks>        |
+| flash               | <SnapBlocks>{`@flash :: control`}</SnapBlocks>               |
+| blitz               | <SnapBlocks>{`@blitz :: control`}</SnapBlocks>               |
+| camera              | <SnapBlocks>{`@camera :: control`}</SnapBlocks>              |
+| circleSolid         | <SnapBlocks>{`@circleSolid :: control`}</SnapBlocks>         |
+| circle              | <SnapBlocks>{`@circle :: control`}</SnapBlocks>              |
+| ellipse             | <SnapBlocks>{`@ellipse :: control`}</SnapBlocks>             |
+| notes               | <SnapBlocks>{`@notes :: control`}</SnapBlocks>               |
+| storage             | <SnapBlocks>{`@storage :: control`}</SnapBlocks>             |
+| brush               | <SnapBlocks>{`@brush :: control`}</SnapBlocks>               |
+| pipette             | <SnapBlocks>{`@pipette :: control`}</SnapBlocks>             |
+| paintbucket         | <SnapBlocks>{`@paintbucket :: control`}</SnapBlocks>         |
+| bucket              | <SnapBlocks>{`@bucket :: control`}</SnapBlocks>              |
+| eraser              | <SnapBlocks>{`@eraser :: control`}</SnapBlocks>              |
+| location            | <SnapBlocks>{`@location :: control`}</SnapBlocks>            |
+| gears               | <SnapBlocks>{`@gears :: control`}</SnapBlocks>               |
+| gearPartial         | <SnapBlocks>{`@gearPartial :: control`}</SnapBlocks>         |
+| gearBig             | <SnapBlocks>{`@gearBig :: control`}</SnapBlocks>             |
+| globe               | <SnapBlocks>{`@globe :: control`}</SnapBlocks>               |
+| globeBig            | <SnapBlocks>{`@globeBig :: control`}</SnapBlocks>            |
+| square              | <SnapBlocks>{`@square :: control`}</SnapBlocks>              |
+| robot               | <SnapBlocks>{`@robot :: control`}</SnapBlocks>               |
+| stepForward         | <SnapBlocks>{`@stepForward :: control`}</SnapBlocks>         |
+| file                | <SnapBlocks>{`@file :: control`}</SnapBlocks>                |
+| fullScreen          | <SnapBlocks>{`@fullScreen :: control`}</SnapBlocks>          |
+| grow                | <SnapBlocks>{`@grow :: control`}</SnapBlocks>                |
+| normalScreen        | <SnapBlocks>{`@normalScreen :: control`}</SnapBlocks>        |
+| shrink              | <SnapBlocks>{`@shrink :: control`}</SnapBlocks>              |
+| smallStage          | <SnapBlocks>{`@smallStage :: control`}</SnapBlocks>          |
+| normalStage         | <SnapBlocks>{`@normalStage :: control`}</SnapBlocks>         |
+| stage               | <SnapBlocks>{`@stage :: control`}</SnapBlocks>               |
+| turnAround          | <SnapBlocks>{`@turnAround :: control`}</SnapBlocks>          |
+| poster              | <SnapBlocks>{`@poster :: control`}</SnapBlocks>              |
+| tick                | <SnapBlocks>{`@tick :: control`}</SnapBlocks>                |
+| checkedBox          | <SnapBlocks>{`@checkedBox :: control`}</SnapBlocks>          |
+| rectangle           | <SnapBlocks>{`@rectangle :: control`}</SnapBlocks>           |
+| rectangleSolid      | <SnapBlocks>{`@rectangleSolid :: control`}</SnapBlocks>      |
+| dot                 | <SnapBlocks>{`@dot :: control`}</SnapBlocks>                 |
+| line                | <SnapBlocks>{`@line :: control`}</SnapBlocks>                |
+| cross               | <SnapBlocks>{`@cross :: control`}</SnapBlocks>               |
+| crosshairs          | <SnapBlocks>{`@crosshairs :: control`}</SnapBlocks>          |
+| speechBubble        | <SnapBlocks>{`@speechBubble :: control`}</SnapBlocks>        |
+| speechBubbleOutline | <SnapBlocks>{`@speechBubbleOutline :: control`}</SnapBlocks> |
+| turnBack            | <SnapBlocks>{`@turnBack :: control`}</SnapBlocks>            |
+| turnForward         | <SnapBlocks>{`@turnForward :: control`}</SnapBlocks>         |
+| magnifyingGlass     | <SnapBlocks>{`@magnifyingGlass :: control`}</SnapBlocks>     |
+| magnifierOutline    | <SnapBlocks>{`@magnifierOutline :: control`}</SnapBlocks>    |
+| selection           | <SnapBlocks>{`@selection :: control`}</SnapBlocks>           |
+| polygon             | <SnapBlocks>{`@polygon :: control`}</SnapBlocks>             |
+| closedBrush         | <SnapBlocks>{`@closedBrush :: control`}</SnapBlocks>         |
+| footprints          | <SnapBlocks>{`@footprints :: control`}</SnapBlocks>          |
+| keyboard            | <SnapBlocks>{`@keyboard :: control`}</SnapBlocks>            |
+| keyboardFilled      | <SnapBlocks>{`@keyboardFilled :: control`}</SnapBlocks>      |
+| listNarrow          | <SnapBlocks>{`@listNarrow :: control`}</SnapBlocks>          |
+| flipVertical        | <SnapBlocks>{`@flipVertical :: control`}</SnapBlocks>        |
+| flipHorizontal      | <SnapBlocks>{`@flipHorizontal :: control`}</SnapBlocks>      |
+| trash               | <SnapBlocks>{`@trash :: control`}</SnapBlocks>               |
+| trashFull           | <SnapBlocks>{`@trashFull :: control`}</SnapBlocks>           |
+| cube                | <SnapBlocks>{`@cube :: control`}</SnapBlocks>                |
+| cubeSolid           | <SnapBlocks>{`@cubeSolid :: control`}</SnapBlocks>           |
+| infinity            | <SnapBlocks>{`@infinity :: control`}</SnapBlocks>            |
+| arrowUp             | <SnapBlocks>{`@arrowUp :: control`}</SnapBlocks>             |
+| arrowUpOutline      | <SnapBlocks>{`@arrowUpOutline :: control`}</SnapBlocks>      |
+| arrowUpThin         | <SnapBlocks>{`@arrowUpThin :: control`}</SnapBlocks>         |
+| arrowDown           | <SnapBlocks>{`@arrowDown :: control`}</SnapBlocks>           |
+| arrowDownOutline    | <SnapBlocks>{`@arrowDownOutline :: control`}</SnapBlocks>    |
+| arrowDownThin       | <SnapBlocks>{`@arrowDownThin :: control`}</SnapBlocks>       |
+| arrowLeft           | <SnapBlocks>{`@arrowLeft :: control`}</SnapBlocks>           |
+| arrowLeftOutline    | <SnapBlocks>{`@arrowLeftOutline :: control`}</SnapBlocks>    |
+| arrowLeftThin       | <SnapBlocks>{`@arrowLeftThin :: control`}</SnapBlocks>       |
+| arrowRight          | <SnapBlocks>{`@arrowRight :: control`}</SnapBlocks>          |
+| arrowRightOutline   | <SnapBlocks>{`@arrowRightOutline :: control`}</SnapBlocks>   |
+| arrowRightThin      | <SnapBlocks>{`@arrowRightThin :: control`}</SnapBlocks>      |
+| arrowUpDownThin     | <SnapBlocks>{`@arrowUpDownThin :: control`}</SnapBlocks>     |
+| arrowLeftRightThin  | <SnapBlocks>{`@arrowLeftRightThin :: control`}</SnapBlocks>  |
+
+#### Icon Shortcuts
+Since `@delInput @verticalEllipsis @addInput` is a very common set of icons to use, there is also a shortcut to add those.
+
+```
+@<:>
+```
+
+<SnapBlocks>
+{`@<:>`}
+</SnapBlocks>
+
+These can be used in any order and however many you want.
+
+```
+@<: @:><>>>
+```
+
+<SnapBlocks>
+{`@<: @:><>>>`}
+</SnapBlocks>
+
+#### Icon properties
+There are some icon properties you can set, scale and color. This uses the same syntax found in Snap<i>!</i>.
+
+This can be used by adding `-[scale]-[r]-[g]-[b]` after the icon name. For example
+
+```
+@flag-2-0-0-0
+$pipette-1.7-135-0
+```
+
+<SnapBlocks>
+{`
+@flag-2-0-0-0
+$pipette-1.7-135-0
+`}
+</SnapBlocks>
+
+If you use `$`, you can type any text, and that text will be used instead of an icon.
+
+```
+$text-2-0-135-90
+```
+
+<SnapBlocks>
+{`
+$text-2-0-135-90
+`}
+</SnapBlocks>
+
+### Custom Blocks
+Custom blocks in Snap<i>!</i> are defined with a special kind of block, called a block prototype. These can be created in snapblocks using a system that mimics what they look like in Snap<i>!</i>.
+
+```
+{+ custom + block +} :: define
+```
+
+<SnapBlocks>
+{`{+ custom + block +} :: define`}
+</SnapBlocks>
+
+However it can be cumbersome to write in all the pluses and hope you didn't forget one, so you can also use `define+` to automatically add them in.
+
+```
+{custom block} :: define+
+```
+
+<SnapBlocks>
+{`{custom block} :: define+`}
+</SnapBlocks>
+
+You can also change the shape, category, and add a definition script.
+
+```
+{($flash assoc ((key)) ((a-list)) :: lists)} :: define+
+report ($blitz find first item (<(key) = (item (1 v) of @list) @<:> > @>) in (a-list))
+```
+
+<SnapBlocks>
+{`
+{(replace every ((pattern = t)) with ((other = sh)) in ((text = tower top)) :: operators)} :: define+
+report (combine (split (text) by (pattern)) using ((join [] (other) [] @<:>) @>))
+`}
+</SnapBlocks>
+
+Blocks are also automatically set to the category defined in the block prototype.
+
+```
+{(replace every ((pattern = t)) with ((other = sh)) in ((text = tower top)) :: operators local)} :: define+
+report (combine (split (text) by (pattern)) using ((join [] (other) [] @<:>) @>))
+
+(replace every [t] with [sh] in [tower top])
+```
+
+<SnapBlocks>
+{`
+{(replace every ((pattern = t)) with ((other = sh)) in ((text = tower top)) :: operators local)} :: define+
+report (combine (split (text) by (pattern)) using ((join [] (other) [] @<:>) @>))
+
+(replace every [t] with [sh] in [tower top])
+`}
+</SnapBlocks>

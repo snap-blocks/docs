@@ -1,6 +1,6 @@
 # Style Guide
 
-When writing snapblocks, it's important to write snapblocks as clean and as readable as possible. This guide will help you to write clean snapblocks code that anyone can read.
+When writing snapblocks that is meant to be viewed by others, it's important to write snapblocks as clean and as readable as possible. This guide will help you to write clean snapblocks code that anyone can read.
 
 ## Overrides
 
@@ -15,7 +15,7 @@ The only reason why no space before `::` was used on the wiki before,
 was because of a bug that has since been fixed.
 
 Whenever writing code, try not to set the category or shape, unless the
-block doesn't exist in Scratch or Snap*!* (Snap*!* libraries are not
+block doesn't exist in Scratch or Snap<i>!</i> (Snap<i>!</i> libraries are not
 included).
 
 ```snapblocks
@@ -52,19 +52,21 @@ move(10)steps // bad
 Indent scripts inside a c-shape.
 
 ```snapblocks
+// good
 if <> {
-    say [Hello!]
-    if <> {
+  say [Hello!]
+  if <> {
     move (10) steps
-    }
-} // good
+  }
+}
 
+// bad
 if <> {
 say [Hello!]
 if <> {
 move (10) steps
 }
-} // bad
+}
 ```
 
 Indents can be 2 or 4 spaces, but should stay consistent.
@@ -75,29 +77,32 @@ Indent multiline reporter and predicate blocks to the
 opening bracket.
 
 ```snapblocks
-multiline\
+multiline \
 block
 
 (multiline
-    block)
+ block)
 
-    <multiline
-    block>
+<multiline
+ block>
     
 move (x position
-        with extra stuff) steps
+      with extra stuff) steps
 ```
 
 ### Multiline Inputs
 
-Don't indent multiline string inputs, as the spaces are placed inside
+Don't indent multiline string inputs, as the spaces will be placed inside
 the input.
 
 ```snapblocks
+// good
 say [Hello
-world] // good
+world]
+
+// bad
 say [Hello
-        world] // bad
+     world]
 ```
 
 This is due to a limitation, it would be indented if spaces weren't
@@ -105,7 +110,7 @@ included.
 
 ## Shapes
 
-Don't use shape overrides, unless neccessary.
+Don't use shape overrides, unless necessary.
 
 ```snapblocks
 (block) // good
@@ -114,8 +119,8 @@ block :: reporter // bad
 
 ## Define Block
 
-When creating a Snap*!* define block, use `define+` instead of manually
-placing in plusses, so you don\'t accidentally miss a plus sign.
+When creating a Snap<i>!</i> define block, use `define+` instead of manually
+placing in plusses, so you don't accidentally miss a plus sign.
 
 ```snapblocks
 {custom block} :: define+

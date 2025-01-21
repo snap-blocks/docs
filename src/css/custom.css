@@ -4,6 +4,10 @@
     --ifm-container-width: 800px;
     --ifm-container-width-xl: 1000px;
     --docusaurus-highlighted-code-line-bg: rgba(255, 215, 0, 0.15);
+    --ifm-pre-padding: 0.5rem;
+    --doc-sidebar-width: max-content !important;
+    --ifm-table-cell-padding: 0.25rem;
+    --ifm-container-width: 900px;
 }
 
 [data-theme='dark'] {
@@ -16,4 +20,9 @@ h1 {
 
 .pagination-nav {
     display: none;
+}
+
+table td :last-child {
+    --ifm-leading: 0;
+    --ifm-paragraph-margin-bottom: 0;
 }

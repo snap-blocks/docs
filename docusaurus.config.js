@@ -63,18 +63,18 @@ const config = {
         items: [
           {
             position: 'left',
-            label: 'Playground',
+            label: 'How to write snapblocks',
+            href: '/writing-snapblocks',
+          },
+          {
+            position: 'right',
+            label: 'Try it out',
             href: 'https://snap-blocks.github.io/',
           },
           {
-            position: 'left',
-            label: 'Syntax',
-            href: '/syntax/',
-          },
-          {
+            position: 'right',
             href: 'https://github.com/snap-blocks/snapblocks',
             label: 'GitHub',
-            position: 'right',
           },
         ],
       },

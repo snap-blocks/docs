@@ -24,12 +24,27 @@ const sidebars = {
   
   tutorialSidebar: [
     'intro',
-    'syntax/syntax',
-    'style guide/style guide',
+    'writing-snapblocks',
+    'style-guide',
     {
       type: 'category',
-      label: 'library',
-      items: ['library/library'],
+      label: 'For Developers',
+      items: [
+        {
+          type: 'category',
+          label: 'API',
+          items: ['for-developers/api/api'],
+        },
+        {
+          type: 'category',
+          label: 'Plugins',
+          items: [
+            'for-developers/plugins/discourse',
+            'for-developers/plugins/mediawiki',
+            'for-developers/plugins/react',
+          ]
+        },
+      ],
     },
   ],
 };
